@@ -14,3 +14,5 @@ class Item(models.Model):
 
     class Meta:
         ordering = ['id']
+
+

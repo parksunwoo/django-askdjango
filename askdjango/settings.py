@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'okgvi-_mau6nterq#&9d=+%#b=kk&su85mif!(iq1*25^w-*at'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,12 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'django_extensions',
     'shop',
     'blog',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -122,3 +124,49 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+INTERNAL_IPS = ['127.0.0.1']
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_true': {
+          '()': 'django.utils.log.RequireDebugTrue'
+        },
+    },
+    'handlers': {
+        'console':{
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler'
+        },
+        'write_to_file': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            'filename': 'db.log',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'shop':{
+            'handlers': ['console'],
+            'level': 'DEBUG'
+        },
+    },
+}
+
+
+
+
+
+
+
+
+
+
+

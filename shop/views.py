@@ -1,8 +1,9 @@
+import logging
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Item
 
-# Create your views here.
+logger = logging.getLogger(__name__)
 
 def archives_year(request, year):
     return HttpResponse('{}년도에 대한 내용'.format(year))
@@ -13,6 +14,8 @@ def item_list(request):
     q = request.GET.get('q', '')
     if q:
         qs = qs.filter(name__icontains=q) # ignore
+
+    logger.debug('query : {}'.format(q))
 
     return render(request, 'shop/item_list.html', {
         'item_list': qs,
