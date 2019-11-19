@@ -1,15 +1,22 @@
-<h1>Ask Company</h1>
-<form action="" method="GET">
-    <input type="text" name="q" value="{{ q }}" />
-    <input type="submit" value="검색" />
-</form>
+{% extends "shop/layout.html" %}
 
-{% for item in item_list %}
-    <div>
-        <h3>{{ item.name }}</h3>
-        <h4>가격 : {{ item.price }}</h4>
-        {% if item.desc %}
-            <p>{{ item.desc }}</p>
-        {% endif %}
-    </div>
-{% endfor %}
+{% block content %}
+    <form action="" method="GET">
+        <input type="text" name="q" value="{{ q }}" />
+        <input type="submit" value="search" />
+    </form>
+
+    <ul>
+        {% for item in item_list %}
+            <li>
+                <a href="/shop/{{ item.pk }}">
+                    <h3>{{ item.name }}</h3>
+                </a>
+                <h4>가격 : {{ item.price }}</h4>
+                {% if item.desc %}
+                    <p>{{ item.desc }}</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
