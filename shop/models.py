@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from askdjango.utils import uuid_upload_to
 
 class Item(models.Model):
@@ -14,7 +15,9 @@ class Item(models.Model):
         #return '<{}> {}'.format(self.pk, self.name)
         return f'<{self.pk}> {self.name}'
 
-    class Meta:
-        ordering = ['id']
+    def get_absolute_url(self):
+        # return reverse('shop:item_detail', args=[self.pk])
+        return reverse('shop:item_detail', kwargs={'pk':self.pk})
+
 
 
