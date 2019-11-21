@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.urls import path, re_path, include, register_converter
 from .converters import FourDigitYearConverter
-from .import views
+from . import views
 
 register_converter(FourDigitYearConverter, 'yyyy')
 

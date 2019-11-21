@@ -1,7 +1,2 @@
-django==2.1.1
-django-extensions==2.1.2
-django-debug-toolbar==2.1
-
-
-
+-r reqs/prod_heroku.txt
 
